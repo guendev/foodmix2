@@ -2,11 +2,8 @@ const mongoose = require('mongoose')
 
 const options = {
     autoIndex: false,
-    poolSize: 10,
-    bufferMaxEntries: 0,
     useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useFindAndModify: false
+    useUnifiedTopology: true
 }
 
 const connectWithRetry = async () => {
@@ -16,6 +13,7 @@ const connectWithRetry = async () => {
         await mongoose.connect(process.env.MONGODB_URL, options)
         console.log('MongoDB connected!')
     } catch (e) {
+        console.log(e)
         console.log('MongoDB connection unsuccessful, retry after 5 seconds.')
         setTimeout(connectWithRetry, 5000)
     }
