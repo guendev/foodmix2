@@ -1,0 +1,30 @@
+{
+  "name": "foodmix",
+  "version": "1.0",
+  "author": "Flutter Team - IT19A2B",
+  "description": "API server công thức món ăn",
+  "private": true,
+  "scripts": {
+    "start": "node bin/www",
+    "dev": "nodemon bin/www"
+  },
+  "dependencies": {
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "dotenv": "^10.0.0",
+    "express": "~4.16.1",
+    "http-errors": "~1.6.3",
+    "mongoose": "^6.0.12",
+    "mongoose-slug-generator": "^1.0.4",
+    "morgan": "~1.9.1",
+    "pug": "2.0.0-beta11"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "eslint": "^8.2.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "nodemon": "^2.0.15",
+    "prettier": "^2.4.1"
+  }
+}
