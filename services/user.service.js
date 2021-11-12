@@ -1,4 +1,5 @@
 const User = require('../models/User')
+const bcrypt = require('bcrypt')
 
 class UserService {
     constructor() {}
@@ -36,7 +37,7 @@ class UserService {
      * @param role
      * @returns {Promise<EnforceDocument<any, {}, {}>>}
      */
-    static async create({ name, email, avatar, password, role }) {
+    static async create(name, email, avatar, password, role) {
         return User.create({
             name,
             email,
@@ -47,10 +48,37 @@ class UserService {
     }
 
     /**
-     * @returns Number
+     * @returns {Promise<Query<number, any, {}, any>>}
      */
     static async count() {
         return User.countDocuments()
+    }
+
+    /**
+     * @param _id
+     * @param field
+     * @param value
+     * @returns {Promise<Query<any, any, {}, any>>}
+     */
+    static async update(_id, field, value) {
+        let data = value
+        if (field === 'password') {
+            data = await this.hashPassword(value)
+        }
+
+        return User.findByIdAndUpdate(_id, { [field]: data }, { returnOriginal: false })
+    }
+
+    static async checkPassword(password, hash) {
+        try {
+            return bcrypt.compareSync(password, hash)
+        } catch (e) {
+            return false
+        }
+    }
+
+    static async hashPassword(password) {
+        return bcrypt.hashSync(password, 10)
     }
 }
 
