@@ -17,6 +17,7 @@ const UserSchema = new mongoose.Schema({
     slug: {
         type: String,
         slug: 'name',
+        unique: true,
         lowercase: true,
         index: true
     },
