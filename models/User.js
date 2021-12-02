@@ -2,6 +2,11 @@ const mongoose = require('mongoose')
 const slug = require('mongoose-slug-generator')
 const bcrypt = require('bcrypt')
 
+/**
+ * User model
+ * @class User
+ */
+
 const UserSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -30,10 +35,36 @@ const UserSchema = new mongoose.Schema({
         type: String,
         default: 'https://i.imgur.com/pqGLgGr.jpg'
     },
+    province: {
+        type: String
+    },
     password: {
         type: String,
         required: true,
         trim: true
+    },
+    about: {
+        type: String
+    },
+    countRecipe: {
+        type: Number,
+        index: true,
+        default: 0
+    },
+    rating: {
+        type: Number,
+        default: 0,
+        index: true
+    },
+    countRating: {
+        type: Number,
+        default: 0,
+        index: true
+    },
+    createdAt: {
+        type: Number,
+        default: Date.now(),
+        index: true
     }
 })
 

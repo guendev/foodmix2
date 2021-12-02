@@ -7,6 +7,14 @@ module.exports.getUsers = () => {
     ]
 }
 
+module.exports.getProfileProperties = () => {
+    return [
+        check('page', 'Page không được để trống').isNumeric(),
+        check('limit', 'Limit không được để trống').isNumeric(),
+        check('order', 'Order không được để trống').not().isEmpty()
+    ]
+}
+
 module.exports.createUser = () => {
     return [
         check('name', 'Tên không được để trống').not().isEmpty(),
@@ -19,23 +27,19 @@ module.exports.createUser = () => {
 
 module.exports.update = () => {
     return [
-        check('field').custom((value) => {
-            if (!['name', 'email', 'avatar', 'password'].includes(value)) {
-                throw new Error('Trường thay đổi không hợp lệ')
-            }
+        check('email', 'Email không được để trống').not().isEmpty(),
+        check('email', 'Email không hợp lêk').isEmail(),
+        check('name', 'Tên là bắt buộc').not().isEmpty(),
+        check('avatar', 'Ảnh đại diện là bắt buộc').not().isEmpty()
+    ]
+}
 
-            // Indicates the success of this synchronous custom validator
-            return true
-        }),
-        check('value', 'Giá trị thay đổi là bắt buộc').not().isEmpty(),
-        check('password').custom((value, { req }) => {
-            if (req.body.field === 'password' && !value) {
-                throw new Error('Bạn cần nhập mật khẩu hiện tại')
-            }
-
-            // Indicates the success of this synchronous custom validator
-            return true
-        })
+module.exports.updatePassword = () => {
+    return [
+        check('password', 'Mật khẩu không được để trống').not().isEmpty(),
+        check('password', 'Mật khẩu phải lớn hơn 6 ký tự').isLength({ min: 6 }),
+        check('oldPassword', 'Mật khẩu không được để trống').not().isEmpty(),
+        check('oldPassword', 'Mật khẩu phải lớn hơn 6 ký tự').isLength({ min: 6 })
     ]
 }
 

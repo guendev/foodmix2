@@ -1,9 +1,10 @@
 const AuthController = require('../controllers/auth.controller')
 
 module.exports = async (req, res, next) => {
+    const token = req.headers.authorization || ''
     let user = undefined
-    if (req.cookies._token) {
-        user = await AuthController.getUser(req.cookies._token)
+    if (token) {
+        user = await AuthController.getUser(token.replace('Bearer ', ''))
     }
     req.user = user
     next()

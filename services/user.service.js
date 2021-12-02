@@ -5,11 +5,13 @@ class UserService {
     constructor() {}
 
     /**
-     * @param field { String }
-     * @param value { String }
+     * @param field
+     * @param value
+     * @param exclude
+     * @returns {Promise<User>}
      */
-    static async getOne(field, value) {
-        return User.findOne({ [field]: value })
+    static async getOne(field, value, exclude = '-password') {
+        return User.findOne({ [field]: value }).select(exclude)
     }
 
     /**
@@ -43,7 +45,8 @@ class UserService {
             email,
             avatar,
             password,
-            role
+            role,
+            createdAt: Date.now()
         })
     }
 
@@ -56,17 +59,13 @@ class UserService {
 
     /**
      * @param _id
-     * @param field
-     * @param value
+     * @param password
      * @returns {Promise<Query<any, any, {}, any>>}
      */
-    static async update(_id, field, value) {
-        let data = value
-        if (field === 'password') {
-            data = await this.hashPassword(value)
-        }
+    static async updatePassword(_id, password) {
+        const hash = await this.hashPassword(password)
 
-        return User.findByIdAndUpdate(_id, { [field]: data }, { returnOriginal: false })
+        return User.findByIdAndUpdate(_id, { password: hash }, { returnOriginal: false })
     }
 
     static async checkPassword(password, hash) {
@@ -75,6 +74,10 @@ class UserService {
         } catch (e) {
             return false
         }
+    }
+
+    static async update(_id, name, email, avatar, about, province) {
+        return User.findByIdAndUpdate(_id, { email, name, avatar, about, province })
     }
 
     static async hashPassword(password) {

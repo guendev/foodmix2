@@ -1,7 +1,5 @@
-const createError = require('http-errors')
-
 module.exports.notFound = (req, res, next) => {
-    next(createError(404))
+    return res.status(404).send('Not Found')
 }
 
 module.exports.errorHandler = (err, req, res) => {
