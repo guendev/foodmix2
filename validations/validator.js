@@ -5,7 +5,7 @@ module.exports.validator = (req, res, next) => {
     const errors = validationResult(req)
 
     if (!errors.isEmpty()) {
-        return res.status(status.FORBIDDEN).json(errors)
+        return res.status(status.FORBIDDEN).json({ code: 2, msg: errors.array() })
     }
 
     next()

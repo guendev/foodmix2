@@ -34,16 +34,14 @@ class UserService {
      * Tạo user mới
      * @param name
      * @param email
-     * @param avatar
      * @param password
      * @param role
      * @returns {Promise<EnforceDocument<any, {}, {}>>}
      */
-    static async create(name, email, avatar, password, role) {
+    static async create(name, email, password, role) {
         return User.create({
             name,
             email,
-            avatar,
             password,
             role,
             createdAt: Date.now()
@@ -76,8 +74,8 @@ class UserService {
         }
     }
 
-    static async update(_id, name, email, avatar, about, province) {
-        return User.findByIdAndUpdate(_id, { email, name, avatar, about, province })
+    static async update(_id, name, email, avatar, banner, about, province) {
+        return User.findByIdAndUpdate(_id, { email, name, avatar, banner, about, province })
     }
 
     static async hashPassword(password) {

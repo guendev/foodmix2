@@ -57,16 +57,16 @@ module.exports.userToReviews = async ({ params, query }, res) => {
 }
 
 module.exports.create = async ({ body }, res) => {
-    const { name, email, password, avatar } = body
+    const { name, email, password } = body
 
     // Kiểm tra email đã đăng ký hay chưa
     const check = await UserSerive.getOne('email', email)
     if (check) {
-        return res.status(status.FORBIDDEN).send('Email đã tồn tại')
+        return res.status(status.FORBIDDEN).send({ code: 2, msg: 'Email đã tồn tại' })
     }
-    const user = await UserSerive.create(name, email, avatar, password, 'user')
+    const user = await UserSerive.create(name, email, password, 'user')
     const token = AuthController.createToken(user)
-    return res.json({ token }).send()
+    return res.json({ code: 2, data: token, msg: 'Đăng Ký Thành Công' })
 }
 
 module.exports.count = async (req, res) => {
@@ -83,13 +83,13 @@ module.exports.count = async (req, res) => {
  * @returns {Promise<void>}
  */
 module.exports.update = async ({ body, user }, res) => {
-    const { name, email, avatar, about, province } = body
+    const { name, email, avatar, banner, about, province } = body
 
     const check = await UserSerive.getOne('email', email)
     if (check && check.email !== user.email) {
         return res.status(status.FORBIDDEN).json({ code: 2, msg: 'Email đã tồn tại' })
     }
-    await UserSerive.update(user._id, name, email, avatar, about || '', province || '')
+    await UserSerive.update(user._id, name, email, avatar, banner, about || '', province || '')
     return res.json({ code: 2, msg: 'Cập nhật thông tin thành công' })
 }
 

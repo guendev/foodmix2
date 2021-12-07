@@ -35,6 +35,10 @@ const UserSchema = new mongoose.Schema({
         type: String,
         default: 'https://i.imgur.com/pqGLgGr.jpg'
     },
+    banner: {
+        type: String,
+        default: '/images/theme/banner.svg'
+    },
     province: {
         type: String
     },

@@ -6,8 +6,16 @@ const Resize = require('../modules/image')
 const Event = require('../events')
 
 function _getImageSize(path) {
-    let CGSize = { width: 100, height: 100 }
+    let CGSize = { width: 0, height: 0 }
     switch (path) {
+        case 'avatar':
+            CGSize.width = 100
+            CGSize.height = 100
+            break
+        case 'banner':
+            CGSize.width = 720
+            CGSize.height = 280
+            break
         case 'recipe':
             CGSize.width = 600
             CGSize.height = 320
@@ -16,6 +24,9 @@ function _getImageSize(path) {
             CGSize.width = 600
             CGSize.height = 320
             break
+        default:
+            CGSize.width = 100
+            CGSize.height = 100
     }
     return CGSize
 }
@@ -29,7 +40,7 @@ function _buildFileName(user, path) {
 module.exports.single = async ({ file, body, user }, res) => {
     try {
         const { path } = body
-        if (!['user', 'recipe', 'stepper'].includes(path)) {
+        if (!['avatar', 'banner', 'recipe', 'stepper'].includes(path)) {
             return res
                 .status(status.FORBIDDEN)
                 .json({ code: 1, data: '', msg: 'Endpoint không hợp lệ' })

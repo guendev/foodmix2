@@ -19,7 +19,7 @@ module.exports.createUser = () => {
     return [
         check('name', 'Tên không được để trống').not().isEmpty(),
         check('email', 'Email không được để trống').not().isEmpty(),
-        check('avatar', 'Avatar không được để trống').isURL(),
+        check('email', 'Email không đúng').isEmail(),
         check('password', 'Mật khẩu không được để trống').not().isEmpty(),
         check('password', 'Mật khẩu phải lớn hơn 6 ký tự').isLength({ min: 6 })
     ]
