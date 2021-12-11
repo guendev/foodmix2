@@ -11,6 +11,10 @@ const routers = [
     {
         prefix: '/recipes',
         router: require('./recipes')
+    },
+    {
+        prefix: '/category',
+        router: require('./category')
     }
 ]
 

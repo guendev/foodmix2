@@ -24,6 +24,10 @@ function _getImageSize(path) {
             CGSize.width = 600
             CGSize.height = 320
             break
+        case 'category':
+            CGSize.width = 600
+            CGSize.height = 320
+            break
         default:
             CGSize.width = 100
             CGSize.height = 100
@@ -40,7 +44,7 @@ function _buildFileName(user, path) {
 module.exports.single = async ({ file, body, user }, res) => {
     try {
         const { path } = body
-        if (!['avatar', 'banner', 'recipe', 'stepper'].includes(path)) {
+        if (!['avatar', 'banner', 'recipe', 'stepper', 'category'].includes(path)) {
             return res
                 .status(status.FORBIDDEN)
                 .json({ code: 1, data: '', msg: 'Endpoint không hợp lệ' })
