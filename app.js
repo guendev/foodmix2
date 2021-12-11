@@ -32,8 +32,11 @@ app.use(userMiddleware)
 
 // setup router
 const router = require('./routes')
-
 app.use(router)
+
+// admin router
+const adminRoute = require('./routes/admin')
+app.use('/admin', adminRoute)
 
 // catch 404 and forward to error handler
 const { notFound, errorHandler } = require('./routes/error')

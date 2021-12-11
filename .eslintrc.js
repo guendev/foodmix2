@@ -19,12 +19,6 @@ module.exports = {
     rules: {
         'no-console': 'off',
         'dot-notation': 'off',
-        'handle-callback-err': 'off',
-        'prettier/prettier': [
-            'error',
-            {
-                printWidth: 100
-            }
-        ]
+        'handle-callback-err': 'off'
     }
 }

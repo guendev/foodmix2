@@ -59,12 +59,12 @@ const RecipeSchema = new mongoose.Schema({
         ]
     },
     time: {
-        type: Number,
+        type: String,
         index: true,
         required: true
     },
     preparation: {
-        type: Number,
+        type: String,
         index: true,
         required: true
     },
