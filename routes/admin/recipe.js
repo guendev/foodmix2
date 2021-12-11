@@ -7,9 +7,10 @@ const RecipeController = require('../../controllers/admin/recipe.controller')
 const { validator } = require('../../validations/validator')
 
 router.get('/', RecipeValidator.getRecipes(), validator, RecipeController.recipes)
-router.get('/count', RecipeController.count)
+router.post('/', RecipeValidator.updateRecipe(), validator, RecipeController.update)
 
 router.post('/:slug', RecipeValidator.updateRecipe(), validator, RecipeController.update)
+router.get('/:slug', RecipeController.getOne)
 router.delete('/:slug', RecipeController.delete)
 
 module.exports = router

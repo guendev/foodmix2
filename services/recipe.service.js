@@ -11,7 +11,7 @@ class RecipeService {
      * @param limit { Number }
      * @returns {Promise<[Recipe]>}
      */
-    static async getMany(order, page, limit, sort = 1) {
+    static async getMany(order, page, limit, sort = -1) {
         let _limit = this._getLimit(limit)
         return Recipe.find()
             .sort({

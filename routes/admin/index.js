@@ -7,6 +7,10 @@ const routers = [
     {
         prefix: '/recipe',
         router: require('./recipe')
+    },
+    {
+        prefix: '/recipes',
+        router: require('./recipes')
     }
 ]
 

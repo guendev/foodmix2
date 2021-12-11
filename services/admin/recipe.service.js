@@ -17,13 +17,36 @@ class RecipeService extends BaseController {
     }
 
     /**
+     * @param filter { Object }
      * @param order
      * @param page
      * @param limit
      * @returns {Promise<Recipe>}
      */
-    async getMany({ order, page, limit }) {
-        return Recipe.find(this.isModQuery())
+    async getMany(filter, { order, page, limit }) {
+        return Recipe.find(this.mergeQuery(filter))
+            .populate([
+                {
+                    path: 'category',
+                    model: Category
+                }
+            ])
+            .sort({
+                [order]: -1
+            })
+            .skip(page * limit)
+            .limit(limit)
+    }
+
+    /**
+     * @param filter { Object }
+     * @param order
+     * @param page
+     * @param limit
+     * @returns {Promise<Recipe>}
+     */
+    async search(filter, { page, limit }) {
+        return Recipe.find(this.mergeQuery(filter))
             .populate([
                 {
                     path: 'category',
@@ -71,6 +94,21 @@ class RecipeService extends BaseController {
             { name, avatar, content, category, ingredients, stepper, time, preparation },
             { returnOriginal: false }
         )
+    }
+
+    async addRecipe({ name, avatar, content, category, ingredients, stepper, time, preparation }) {
+        return Recipe.create({
+            user: this.user._id,
+            name,
+            avatar,
+            content,
+            category,
+            ingredients,
+            stepper,
+            time,
+            preparation,
+            createdAt: Date.now()
+        })
     }
 
     /**
