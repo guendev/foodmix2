@@ -13,9 +13,7 @@ module.exports.users = async ({ body }, res) => {
 module.exports.user = async ({ params }, res) => {
     const user = await UserSerive.getOne('slug', params.slug)
     if (!user) {
-        return res
-            .status(status.NOT_FOUND)
-            .json({ code: 1, data: '', msg: 'Đầu bếp không tồn tại' })
+        return res.status(status.NOT_FOUND).json({ code: 1, data: '', msg: 'Đầu bếp không tồn tại' })
     }
     return res.json({ code: 1, data: user, msg: '' })
 }
@@ -23,36 +21,20 @@ module.exports.user = async ({ params }, res) => {
 module.exports.userToRecipes = async ({ params, query }, res) => {
     const user = await UserSerive.getOne('slug', params.slug)
     if (!user) {
-        return res
-            .status(status.NOT_FOUND)
-            .json({ code: 1, data: '', msg: 'Đầu bếp không tồn tại' })
+        return res.status(status.NOT_FOUND).json({ code: 1, data: '', msg: 'Đầu bếp không tồn tại' })
     }
     const { page, limit, order } = query
-    const recipes = await RecipeService.getManyBy(
-        'user',
-        user._id,
-        order,
-        parseInt(page),
-        parseInt(limit)
-    )
+    const recipes = await RecipeService.getManyBy('user', user._id, order, parseInt(page), parseInt(limit))
     return res.json({ code: 1, data: recipes, msg: '' })
 }
 
 module.exports.userToReviews = async ({ params, query }, res) => {
     const user = await UserSerive.getOne('slug', params.slug)
     if (!user) {
-        return res
-            .status(status.NOT_FOUND)
-            .json({ code: 1, data: '', msg: 'Đầu bếp không tồn tại' })
+        return res.status(status.NOT_FOUND).json({ code: 1, data: '', msg: 'Đầu bếp không tồn tại' })
     }
     const { page, limit, order } = query
-    const recipes = await RecipeService.getReviewBy(
-        'user',
-        user._id,
-        order,
-        parseInt(page),
-        parseInt(limit)
-    )
+    const recipes = await RecipeService.getReviewBy('user', user._id, order, parseInt(page), parseInt(limit))
     return res.json({ code: 1, data: recipes, msg: '' })
 }
 

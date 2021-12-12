@@ -1,10 +1,7 @@
 const { check } = require('express-validator')
 
 module.exports.getUsers = () => {
-    return [
-        check('page', 'Page không được để trống').isNumeric(),
-        check('limit', 'Limit không được để trống').isNumeric()
-    ]
+    return [check('page', 'Page không được để trống').isNumeric(), check('limit', 'Limit không được để trống').isNumeric()]
 }
 
 module.exports.getProfileProperties = () => {

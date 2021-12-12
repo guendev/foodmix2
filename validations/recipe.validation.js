@@ -5,11 +5,7 @@ module.exports.getRecipes = () => {
         check('page', 'Page không được để trống').isNumeric(),
         check('limit', 'Limit không được để trống').isNumeric(),
         check('order').custom((value) => {
-            if (
-                !['createdAt', 'countRating', 'views', 'rating', 'preparation', 'time'].includes(
-                    value
-                )
-            ) {
+            if (!['createdAt', 'countRating', 'views', 'rating', 'preparation', 'time'].includes(value)) {
                 throw new Error('Trường order không hợp lệ')
             }
 
@@ -60,8 +56,5 @@ module.exports.getSearch = () => {
 }
 
 module.exports.getRandom = () => {
-    return [
-        check('size', 'Size không được để trống').not().isEmpty(),
-        check('size', 'Size phải là số').isNumeric()
-    ]
+    return [check('size', 'Size không được để trống').not().isEmpty(), check('size', 'Size phải là số').isNumeric()]
 }

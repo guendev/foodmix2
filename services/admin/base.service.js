@@ -10,7 +10,7 @@ class BaseService {
     }
 
     isMod() {
-        return ['mod', 'admin'].includes(this.user.role)
+        return ['mod', 'admin', 'sp_admin'].includes(this.user.role)
     }
 
     isModQuery(field = 'user') {
