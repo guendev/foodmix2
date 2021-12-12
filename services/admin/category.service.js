@@ -33,7 +33,11 @@ class RecipeService extends BaseController {
     }
 
     async delete(filter) {
-        return Category.findByIdAndDelete(filter)
+        return Category.findOneAndDelete(filter)
+    }
+
+    async getOne(filter) {
+        return Category.findOne(filter)
     }
 }
 module.exports = RecipeService

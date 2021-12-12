@@ -7,3 +7,7 @@ module.exports.updateCategory = () => {
         check('content', 'Nội dung không được để trống').not().isEmpty()
     ]
 }
+
+module.exports.deleteCategory = () => {
+    return [check('newCategory', 'Phân loại mới không được để trống').not().isEmpty()]
+}

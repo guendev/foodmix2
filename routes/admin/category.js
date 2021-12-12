@@ -8,6 +8,6 @@ const { validator } = require('../../validations/validator')
 
 router.get('/', CategoryController.getAll)
 router.post('/:slug', CategoryValidator.updateCategory(), validator, CategoryController.update)
-router.delete('/:slug', CategoryController.delete)
+router.delete('/:slug', CategoryValidator.deleteCategory(), validator, CategoryController.delete)
 
 module.exports = router

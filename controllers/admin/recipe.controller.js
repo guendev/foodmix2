@@ -89,6 +89,7 @@ module.exports.delete = async ({ user, params }, res) => {
     if (!result) {
         return res.status(status.NOT_FOUND).json({ code: 1, data: [], msg: 'Recipe not found' })
     }
+    Event.deleteReviews(result)
     // trigger sự kiện xoá review
     return res.json({ code: 2, msg: 'Xoá thành công' })
 }

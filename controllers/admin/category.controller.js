@@ -22,12 +22,25 @@ module.exports.update = async ({ user, params, body }, res) => {
     }
     return res.json({ code: 2, msg: 'Cập nhật thành công', data: result })
 }
-
-module.exports.delete = async ({ user, params }, res) => {
+/**
+ * @param user
+ * @param params
+ * @param query.newCategory { String }
+ * @param query { Object }
+ * @param res
+ * @returns {Promise<*>}
+ */
+module.exports.delete = async ({ user, params, query }, res) => {
     const categoryService = new CategoryService(user)
+    const newCategory = await categoryService.getOne({ slug: query.newCategory })
+    if (!newCategory) {
+        return res.status(status.FORBIDDEN).json({ code: 2, msg: 'Phân loại mới không tồn tại' })
+    }
+
     const result = await categoryService.delete({ slug: params.slug })
     if (!result) {
         return res.status(status.NOT_FOUND).json({ code: 2, msg: 'Phân loại không tồn tại' })
     }
+    Event.deleteCategory(result, newCategory)
     return res.json({ code: 2, msg: 'Xoá thành công' })
 }
